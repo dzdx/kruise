@@ -179,8 +179,14 @@ func main() {
 			setupLog.Error(err, "unable to initialize webhook")
 			os.Exit(1)
 		}
-
 		if err := mgr.AddReadyzCheck("webhook-ready", webhook.Checker); err != nil {
+			setupLog.Error(err, "unable to add readyz check")
+			os.Exit(1)
+		}
+	} else {
+		if err := mgr.AddReadyzCheck("webhook-ready", func(req *http.Request) error {
+			return nil
+		}); err != nil {
 			setupLog.Error(err, "unable to add readyz check")
 			os.Exit(1)
 		}
