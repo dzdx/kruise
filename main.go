@@ -80,6 +80,7 @@ func main() {
 	var leaderElectionNamespace string
 	var namespace string
 	var syncPeriodStr string
+	var enableWebhook bool
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
 	flag.StringVar(&healthProbeAddr, "health-probe-addr", ":8000", "The address the healthz/readyz endpoint binds to.")
 	flag.BoolVar(&allowPrivileged, "allow-privileged", true, "If true, allow privileged containers. It will only work if api-server is also"+
@@ -90,6 +91,7 @@ func main() {
 	flag.StringVar(&namespace, "namespace", "",
 		"Namespace if specified restricts the manager's cache to watch objects in the desired namespace. Defaults to all namespaces.")
 	flag.BoolVar(&enablePprof, "enable-pprof", true, "Enable pprof for controller manager.")
+	flag.BoolVar(&enableWebhook, "enable-webhook", true, "Enable webhook for controller manager.")
 	flag.StringVar(&pprofAddr, "pprof-addr", ":8090", "The address the pprof binds to.")
 	flag.StringVar(&syncPeriodStr, "sync-period", "", "Determines the minimum frequency at which watched resources are reconciled.")
 
@@ -164,29 +166,33 @@ func main() {
 		os.Exit(1)
 	}
 
-	setupLog.Info("setup webhook")
-	if err = webhook.SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to setup webhook")
-		os.Exit(1)
-	}
+	if enableWebhook {
+		setupLog.Info("setup webhook")
+		if err = webhook.SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to setup webhook")
+			os.Exit(1)
+		}
 
-	// +kubebuilder:scaffold:builder
-	setupLog.Info("initialize webhook")
-	if err := webhook.Initialize(ctx, cfg); err != nil {
-		setupLog.Error(err, "unable to initialize webhook")
-		os.Exit(1)
-	}
+		// +kubebuilder:scaffold:builder
+		setupLog.Info("initialize webhook")
+		if err := webhook.Initialize(ctx, cfg); err != nil {
+			setupLog.Error(err, "unable to initialize webhook")
+			os.Exit(1)
+		}
 
-	if err := mgr.AddReadyzCheck("webhook-ready", webhook.Checker); err != nil {
-		setupLog.Error(err, "unable to add readyz check")
-		os.Exit(1)
+		if err := mgr.AddReadyzCheck("webhook-ready", webhook.Checker); err != nil {
+			setupLog.Error(err, "unable to add readyz check")
+			os.Exit(1)
+		}
 	}
 
 	go func() {
-		setupLog.Info("wait webhook ready")
-		if err = webhook.WaitReady(); err != nil {
-			setupLog.Error(err, "unable to wait webhook ready")
-			os.Exit(1)
+		if enableWebhook {
+			setupLog.Info("wait webhook ready")
+			if err = webhook.WaitReady(); err != nil {
+				setupLog.Error(err, "unable to wait webhook ready")
+				os.Exit(1)
+			}
 		}
 
 		setupLog.Info("setup controllers")

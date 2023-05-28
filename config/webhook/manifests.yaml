@@ -13,26 +13,6 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
-      path: /mutate-pod
-  failurePolicy: Fail
-  name: mpod.kb.io
-  rules:
-  - apiGroups:
-    - ""
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    resources:
-    - pods
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  - v1beta1
-  clientConfig:
-    service:
-      name: webhook-service
-      namespace: system
       path: /mutate-apps-kruise-io-v1alpha1-advancedcronjob
   failurePolicy: Fail
   name: madvancedcronjob.kb.io
@@ -180,6 +160,26 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
+      path: /mutate-pod
+  failurePolicy: Fail
+  name: mpod.kb.io
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    resources:
+    - pods
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
       path: /mutate-apps-kruise-io-v1alpha1-sidecarset
   failurePolicy: Fail
   name: msidecarset.kb.io
@@ -245,48 +245,6 @@ metadata:
   creationTimestamp: null
   name: validating-webhook-configuration
 webhooks:
-- admissionReviewVersions:
-  - v1
-  - v1beta1
-  clientConfig:
-    service:
-      name: webhook-service
-      namespace: system
-      path: /validate-apps-kruise-io-v1alpha1-resourcedistribution
-  failurePolicy: Fail
-  name: vresourcedistribution.kb.io
-  rules:
-  - apiGroups:
-    - apps.kruise.io
-    apiVersions:
-    - v1alpha1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - resourcedistributions
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  - v1beta1
-  clientConfig:
-    service:
-      name: webhook-service
-      namespace: system
-      path: /validate-apps-kruise-io-v1alpha1-workloadspread
-  failurePolicy: Fail
-  name: vworkloadspread.kb.io
-  rules:
-  - apiGroups:
-    - apps.kruise.io
-    apiVersions:
-    - v1alpha1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - workloadspreads
-  sideEffects: None
 - admissionReviewVersions:
   - v1
   - v1beta1
@@ -626,6 +584,27 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
+      path: /validate-apps-kruise-io-v1alpha1-resourcedistribution
+  failurePolicy: Fail
+  name: vresourcedistribution.kb.io
+  rules:
+  - apiGroups:
+    - apps.kruise.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - resourcedistributions
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
       path: /validate-apps-kruise-io-v1alpha1-sidecarset
   failurePolicy: Fail
   name: vsidecarset.kb.io
@@ -684,4 +663,25 @@ webhooks:
     - DELETE
     resources:
     - uniteddeployments
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-apps-kruise-io-v1alpha1-workloadspread
+  failurePolicy: Fail
+  name: vworkloadspread.kb.io
+  rules:
+  - apiGroups:
+    - apps.kruise.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - workloadspreads
   sideEffects: None

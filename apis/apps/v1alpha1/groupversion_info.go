@@ -26,7 +26,7 @@ import (
 
 var (
 	// GroupVersion is group version used to register these objects
-	GroupVersion = schema.GroupVersion{Group: "apps.kruise.io", Version: "v1alpha1"}
+	GroupVersion = schema.GroupVersion{Group: "apps.kruise.dipeak.io", Version: "v1alpha1"}
 
 	SchemeGroupVersion = GroupVersion
 

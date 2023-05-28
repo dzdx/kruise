@@ -17,25 +17,8 @@ limitations under the License.
 package controller
 
 import (
-	"github.com/openkruise/kruise/pkg/controller/advancedcronjob"
-	"github.com/openkruise/kruise/pkg/controller/broadcastjob"
 	"github.com/openkruise/kruise/pkg/controller/cloneset"
-	containerlauchpriority "github.com/openkruise/kruise/pkg/controller/containerlaunchpriority"
-	"github.com/openkruise/kruise/pkg/controller/containerrecreaterequest"
-	"github.com/openkruise/kruise/pkg/controller/daemonset"
-	"github.com/openkruise/kruise/pkg/controller/ephemeraljob"
-	"github.com/openkruise/kruise/pkg/controller/imagepulljob"
-	"github.com/openkruise/kruise/pkg/controller/nodeimage"
-	"github.com/openkruise/kruise/pkg/controller/nodepodprobe"
-	"github.com/openkruise/kruise/pkg/controller/persistentpodstate"
-	"github.com/openkruise/kruise/pkg/controller/podprobemarker"
-	"github.com/openkruise/kruise/pkg/controller/podreadiness"
-	"github.com/openkruise/kruise/pkg/controller/podunavailablebudget"
-	"github.com/openkruise/kruise/pkg/controller/resourcedistribution"
-	"github.com/openkruise/kruise/pkg/controller/sidecarset"
 	"github.com/openkruise/kruise/pkg/controller/statefulset"
-	"github.com/openkruise/kruise/pkg/controller/uniteddeployment"
-	"github.com/openkruise/kruise/pkg/controller/workloadspread"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/klog/v2"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -44,25 +27,25 @@ import (
 var controllerAddFuncs []func(manager.Manager) error
 
 func init() {
-	controllerAddFuncs = append(controllerAddFuncs, advancedcronjob.Add)
-	controllerAddFuncs = append(controllerAddFuncs, broadcastjob.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, advancedcronjob.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, broadcastjob.Add)
 	controllerAddFuncs = append(controllerAddFuncs, cloneset.Add)
-	controllerAddFuncs = append(controllerAddFuncs, containerrecreaterequest.Add)
-	controllerAddFuncs = append(controllerAddFuncs, daemonset.Add)
-	controllerAddFuncs = append(controllerAddFuncs, nodeimage.Add)
-	controllerAddFuncs = append(controllerAddFuncs, imagepulljob.Add)
-	controllerAddFuncs = append(controllerAddFuncs, podreadiness.Add)
-	controllerAddFuncs = append(controllerAddFuncs, sidecarset.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, containerrecreaterequest.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, daemonset.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, nodeimage.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, imagepulljob.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, podreadiness.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, sidecarset.Add)
 	controllerAddFuncs = append(controllerAddFuncs, statefulset.Add)
-	controllerAddFuncs = append(controllerAddFuncs, uniteddeployment.Add)
-	controllerAddFuncs = append(controllerAddFuncs, podunavailablebudget.Add)
-	controllerAddFuncs = append(controllerAddFuncs, workloadspread.Add)
-	controllerAddFuncs = append(controllerAddFuncs, resourcedistribution.Add)
-	controllerAddFuncs = append(controllerAddFuncs, ephemeraljob.Add)
-	controllerAddFuncs = append(controllerAddFuncs, containerlauchpriority.Add)
-	controllerAddFuncs = append(controllerAddFuncs, persistentpodstate.Add)
-	controllerAddFuncs = append(controllerAddFuncs, podprobemarker.Add)
-	controllerAddFuncs = append(controllerAddFuncs, nodepodprobe.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, uniteddeployment.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, podunavailablebudget.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, workloadspread.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, resourcedistribution.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, ephemeraljob.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, containerlauchpriority.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, persistentpodstate.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, podprobemarker.Add)
+	//controllerAddFuncs = append(controllerAddFuncs, nodepodprobe.Add)
 }
 
 func SetupWithManager(m manager.Manager) error {
