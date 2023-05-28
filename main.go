@@ -91,7 +91,7 @@ func main() {
 	flag.StringVar(&namespace, "namespace", "",
 		"Namespace if specified restricts the manager's cache to watch objects in the desired namespace. Defaults to all namespaces.")
 	flag.BoolVar(&enablePprof, "enable-pprof", true, "Enable pprof for controller manager.")
-	flag.BoolVar(&enableWebhook, "enable-webhook", true, "Enable webhook for controller manager.")
+	flag.BoolVar(&enableWebhook, "enable-webhook", false, "Enable webhook for controller manager.")
 	flag.StringVar(&pprofAddr, "pprof-addr", ":8090", "The address the pprof binds to.")
 	flag.StringVar(&syncPeriodStr, "sync-period", "", "Determines the minimum frequency at which watched resources are reconciled.")
 

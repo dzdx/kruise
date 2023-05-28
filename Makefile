@@ -1,5 +1,5 @@
 # Image URL to use all building/pushing image targets
-IMG ?= openkruise/kruise-manager:test
+IMG ?= dzdx/dipeak-kruise-manager:test
 # Platforms to build the image for
 PLATFORMS ?= linux/amd64,linux/arm64,linux/arm,linux/ppc64le
 CRD_OPTIONS ?= "crd:crdVersions=v1"
